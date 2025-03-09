@@ -1,2 +1,1 @@
-# LibraryProject
-This is a Django project for learning purposes.
+# Alx_DjangoLearnLab
