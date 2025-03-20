@@ -80,14 +80,18 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Use PostgreSQL
-        'NAME': 'django_blog_db',                   # Your database name
-        'USER': 'bloguser',                         # Your database user
-        'PASSWORD': 'password123',                  # Your database password
-        'HOST': 'localhost',                        # Database host
-        'PORT': '5432',                             # Database port (default PostgreSQL port)
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'your_database_name',
+        'USER': 'your_user',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+
+
+
 
 
 # Password validation
