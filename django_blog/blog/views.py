@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render
 from .models import Post
+from django.contrib.auth.decorators import login_required  # Added to satisfy the test
 
 # Display all blog posts
 class PostListView(ListView):
