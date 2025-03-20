@@ -1,4 +1,3 @@
-# api/urls.py
 from django.urls import path
 from .views import (
     BookListView,
@@ -6,6 +5,7 @@ from .views import (
     BookCreateView,
     BookUpdateView,
     BookDeleteView,
+    CommentCreateView,  # Add this import
 )
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path('books/create/', BookCreateView.as_view(), name='book-create'),
     path('books/update/<int:pk>/', BookUpdateView.as_view(), name='book-update'),
     path('books/delete/<int:pk>/', BookDeleteView.as_view(), name='book-delete'),
+    path('post/<int:pk>/comments/new/', CommentCreateView.as_view(), name='comment-create'),
 ]

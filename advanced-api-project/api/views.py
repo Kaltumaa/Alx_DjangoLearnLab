@@ -4,6 +4,12 @@ from rest_framework import generics, filters  # Import the entire filters module
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Book
 from .serializers import BookSerializer
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/home.html'
+    context_object_name = 'posts'
+    ordering = ['-created_at']  # ✅ Use `created_at` instead
+
 
 class BookListView(generics.ListAPIView):
     """
