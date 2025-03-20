@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import generics
 from .models import Book
 from .serializers import BookSerializer
@@ -10,7 +10,7 @@ class BookListView(generics.ListAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # Allow read-only access to unauthenticated users using IsAuthenticatedOrReadOnly.
+    # Using IsAuthenticatedOrReadOnly to allow read-only access for unauthenticated users.
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class BookDetailView(generics.RetrieveAPIView):
