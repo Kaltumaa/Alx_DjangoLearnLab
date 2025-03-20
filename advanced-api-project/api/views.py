@@ -1,4 +1,7 @@
 # api/views.py
+
+# Include the required import for django_filters
+from django_filters import rest_framework
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
@@ -27,7 +30,7 @@ class BookListView(generics.ListAPIView):
     # DRF filter backends for filtering, search, and ordering
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     
-    # Enable filtering by these fields
+    # Enable filtering on these fields
     filterset_fields = ['title', 'publication_year', 'author']
     
     # Enable search functionality on these fields
