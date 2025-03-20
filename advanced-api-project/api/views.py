@@ -1,48 +1,57 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Book
 from .serializers import BookSerializer
 
 class BookListView(generics.ListAPIView):
     """
-    View to list all books with filtering, searching, and ordering capabilities.
-    
+    API view to list all books with filtering, search, and ordering capabilities.
+
     Filtering:
-      - Users can filter books by 'title', 'publication_year', and 'author' (using author name).
-      
+      - Filter by 'title', 'publication_year', and 'author'.
+    
     Searching:
-      - Enables text search on 'title' and 'author__name'.
-      
+      - Enable text search on 'title' and the related 'author__name'.
+    
     Ordering:
-      - Users can order the results by 'title' and 'publication_year'.
-      
+      - Allow ordering by 'title' and 'publication_year'.
+    
     Permission:
-      - Read operations are allowed to all users (authenticated or not).
+      - Uses IsAuthenticatedOrReadOnly to grant read access to unauthenticated users.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     
-    # Set up filtering, searching, and ordering backends.
+    # Integrate filtering, searching, and ordering:
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     
-    # Filtering by specific fields
+    # Allow filtering on these fields:
     filterset_fields = ['title', 'publication_year', 'author']
     
-    # Search on title and the related author's name.
+    # Allow searching on title and author's name:
     search_fields = ['title', 'author__name']
     
-    # Allow ordering by title and publication_year.
+    # Allow ordering by title and publication_year:
     ordering_fields = ['title', 'publication_year']
 
-# The other views remain the same:
+
 class BookDetailView(generics.RetrieveAPIView):
+    """
+    API view to retrieve details of a single book.
+    Accessible by any user.
+    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+
 class BookCreateView(generics.CreateAPIView):
+    """
+    API view to create a new book.
+    Accessible only to authenticated users.
+    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
@@ -50,7 +59,12 @@ class BookCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+
 class BookUpdateView(generics.UpdateAPIView):
+    """
+    API view to update an existing book.
+    Accessible only to authenticated users.
+    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
@@ -58,7 +72,12 @@ class BookUpdateView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         serializer.save()
 
+
 class BookDeleteView(generics.DestroyAPIView):
+    """
+    API view to delete a book.
+    Accessible only to authenticated users.
+    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
