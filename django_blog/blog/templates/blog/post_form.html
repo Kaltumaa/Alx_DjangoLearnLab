@@ -3,3 +3,22 @@
     {{ form.as_p }}
     <button type="submit">Save</button>
 </form>
+<h3>Comments</h3>
+{% for comment in post.comments.all %}
+    <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+    {% if request.user == comment.author %}
+        <a href="{% url 'comment-update' comment.pk %}">Edit</a>
+        <a href="{% url 'comment-delete' comment.pk %}">Delete</a>
+    {% endif %}
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="post" action="{% url 'comment-create' post.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to comment.</p>
+{% endif %}
