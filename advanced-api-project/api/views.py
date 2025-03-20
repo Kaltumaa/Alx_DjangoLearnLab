@@ -1,17 +1,10 @@
-from django.http import HttpResponse
 from rest_framework import generics, permissions
 from .models import Book
 from .serializers import BookSerializer
 
-def home(request):
-    """
-    A simple home view that returns a welcome message.
-    """
-    return HttpResponse("Welcome to the Advanced API Project!")
-
 class BookListView(generics.ListAPIView):
     """
-    List all books.
+    View to list all books.
     Accessible by any user (read-only).
     """
     queryset = Book.objects.all()
@@ -20,7 +13,7 @@ class BookListView(generics.ListAPIView):
 
 class BookDetailView(generics.RetrieveAPIView):
     """
-    Retrieve details of a single book by its ID.
+    View to retrieve details of a single book by its ID.
     Accessible by any user (read-only).
     """
     queryset = Book.objects.all()
@@ -29,7 +22,7 @@ class BookDetailView(generics.RetrieveAPIView):
 
 class BookCreateView(generics.CreateAPIView):
     """
-    Create a new book entry.
+    View to create a new book entry.
     Only authenticated users can perform this action.
     """
     queryset = Book.objects.all()
@@ -37,11 +30,12 @@ class BookCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
+        # Additional creation logic can be added here if needed.
         serializer.save()
 
 class BookUpdateView(generics.UpdateAPIView):
     """
-    Update an existing book entry.
+    View to update an existing book entry.
     Only authenticated users can perform this action.
     """
     queryset = Book.objects.all()
@@ -49,11 +43,12 @@ class BookUpdateView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
+        # Additional update logic can be added here if needed.
         serializer.save()
 
 class BookDeleteView(generics.DestroyAPIView):
     """
-    Delete an existing book entry.
+    View to delete an existing book entry.
     Only authenticated users can perform this action.
     """
     queryset = Book.objects.all()
