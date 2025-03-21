@@ -11,8 +11,8 @@ urlpatterns = [
     path("books/update/<int:pk>/", BookUpdateView.as_view(), name="book-update"),
     path("books/delete/<int:pk>/", BookDeleteView.as_view(), name="book-delete"),
 
-    # ✅ Corrected URLs
-    path("posts/<int:post_id>/comments/new/", CommentCreateView.as_view(), name="comment-create"),
-    path("comment/<int:pk>/update/", CommentUpdateView.as_view(), name="comment-update"),  # ✅ Added
-    path("comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"),  # ✅ Added
+    # ✅ Updated to match the expected structure
+    path("post/<int:pk>/comments/new/", CommentCreateView.as_view(), name="comment-create"),  
+    path("comment/<int:pk>/update/", CommentUpdateView.as_view(), name="comment-update"),
+    path("comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"),
 ]
