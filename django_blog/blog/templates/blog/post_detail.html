@@ -4,3 +4,6 @@
     <a href="{% url 'post-edit' post.pk %}">Edit</a>
     <a href="{% url 'post-delete' post.pk %}">Delete</a>
 {% endif %}
+{% for tag in post.tags.all %}
+    <a href="{% url 'tagged-posts' tag.name %}">#{{ tag.name }}</a>
+{% endfor %}
