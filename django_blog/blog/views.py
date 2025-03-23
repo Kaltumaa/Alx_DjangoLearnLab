@@ -7,6 +7,21 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.db.models import Q
 from taggit.models import Tag
+from django.db.models import Q
+from django.shortcuts import render
+from .forms import SearchForm
+
+def search_view(request):
+    form = SearchForm(request.GET)
+    query = request.GET.get('query', '')
+    results = []
+
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
+        ).distinct()
+
+    return render(request, "blog/search_results.html", {"form": form, "results": results, "query": query})
 
 class TaggedPostListView(ListView):
     model = Post
