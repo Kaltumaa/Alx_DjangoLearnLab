@@ -11,6 +11,15 @@ from django.db.models import Q
 from django.shortcuts import render
 from .forms import SearchForm
 
+class PostByTagListView(ListView):
+    model = Post
+    template_name = "blog/tagged_posts.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, slug=self.kwargs.get("tag_slug"))
+        return Post.objects.filter(tags__in=[tag])
+
 def search_view(request):
     form = SearchForm(request.GET)
     query = request.GET.get('query', '')
